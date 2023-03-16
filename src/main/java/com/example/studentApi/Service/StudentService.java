@@ -1,7 +1,6 @@
 package com.example.studentApi.Service;
 
 import com.example.studentApi.Model.Student;
-
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,20 +8,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Service
 public class StudentService {
     private Map<Long, Student> students = new HashMap<>();
     private Long nextId = 1L;
 
+    // Get all students
     public List<Student> getAllStudents() {
         return new ArrayList<>(students.values());
     }
 
+    // Get a specific student by ID
     public Student getStudentById(Long id) {
         return students.get(id);
     }
 
+    // Create a new student
     public Student createStudent(Student student) {
         student.setId(nextId);
         students.put(nextId, student);
@@ -30,6 +31,7 @@ public class StudentService {
         return student;
     }
 
+    // Update an existing student by ID
     public Student updateStudent(Long id, Student student) {
         Student existingStudent = students.get(id);
         if (existingStudent != null) {
@@ -42,9 +44,12 @@ public class StudentService {
         }
     }
 
+    // Delete a student by ID
     public void deleteStudent(Long id) {
         students.remove(id);
     }
+
+    // Search for students by name
     public List<Student> searchStudents(String name) {
         List<Student> searchResults = new ArrayList<>();
         for (Student student : students.values()) {
@@ -54,7 +59,4 @@ public class StudentService {
         }
         return searchResults;
     }
-
-
-
 }
